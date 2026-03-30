@@ -1,0 +1,210 @@
+:root {
+    --lime: #32CD32;
+    --black: #050505;
+    --dark: #121212;
+    --gray: #252525;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--black);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 25px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: rgba(5, 5, 5, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-family: 'Syncopate', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+.logo span { color: var(--lime); }
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+nav a:hover { color: var(--lime); }
+
+/* Hero / TNT Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0 10%;
+}
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    width: 100%;
+}
+
+.label {
+    background: var(--lime);
+    color: var(--black);
+    padding: 4px 12px;
+    font-weight: 900;
+    border-radius: 2px;
+}
+
+h1 {
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    margin: 20px 0;
+    line-height: 1;
+}
+
+.countdown {
+    display: flex;
+    gap: 15px;
+    margin: 40px 0;
+}
+
+.t-item {
+    background: var(--dark);
+    padding: 15px;
+    min-width: 90px;
+    text-align: center;
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+}
+
+.t-item span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--lime);
+}
+
+.t-item label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+.main-btn {
+    display: inline-block;
+    padding: 18px 40px;
+    background: var(--lime);
+    color: var(--black);
+    text-decoration: none;
+    font-weight: 900;
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px rgba(50, 205, 50, 0.3);
+    transition: 0.3s;
+}
+
+.main-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(50, 205, 50, 0.5);
+}
+
+/* TNT Visual Art */
+.tnt-art {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.art-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px dashed var(--lime);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+}
+
+.tnt-text {
+    font-size: 6rem;
+    font-weight: 900;
+    color: #ff0000;
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Covers Grid */
+.covers { padding: 100px 10%; }
+
+.title {
+    font-size: 3rem;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+.title span { color: var(--lime); }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: var(--dark);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.3s;
+    border: 1px solid var(--gray);
+}
+
+.card:hover { border-color: var(--lime); transform: translateY(-5px); }
+
+.card-img { height: 300px; background-size: cover; background-position: center; }
+
+.card-body { padding: 20px; }
+
+.play-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: transparent;
+    border: 1px solid var(--lime);
+    color: var(--lime);
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.play-btn:hover { background: var(--lime); color: var(--black); }
+
+footer { padding: 50px; text-align: center; opacity: 0.5; }
+
