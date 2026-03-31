@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MrLaym | TNT DINAMIT</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --lime: #32CD32;
+            --black: #080808;
+            --red: #ff3333;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        /* Фоновое свечение */
+        .glow {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 50%, rgba(50, 205, 50, 0.1) 0%, transparent 80%);
+            z-index: -1;
+        }
+
+        header {
+            position: absolute;
+            top: 40px;
+            width: 100%;
+        }
+
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 5px;
+        }
+
+        .logo span { color: var(--lime); text-shadow: 0 0 20px var(--lime); }
+
+        .container { width: 100%; max-width: 900px; padding: 20px; z-index: 1; }
+
+        .main-title {
+            font-size: clamp(3rem, 12vw, 7rem);
+            line-height: 0.9;
+            margin-bottom: 40px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .main-title span {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--lime);
+        }
+
+        .bomb {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: shake 0.5s infinite alternate;
+        }
+
+        @keyframes shake {
+            from { transform: scale(1) rotate(-5deg); }
+            to { transform: scale(1.1) rotate(5deg); }
+        }
+
+        /* ТАЙМЕР */
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .t-unit {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--lime);
+            padding: 20px;
+            min-width: 100px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(50, 205, 50, 0.2);
+        }
+
+        .t-unit span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--lime);
+        }
+
+        .t-unit p { font-size: 0.7rem; text-transform: uppercase; opacity: 0.6; margin-top: 5px; }
+
+        .status {
+            color: var(--red);
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0.3; } }
+
+        /* ПЛЕЕР (Появится после взрыва) */
+        .player-card {
+            background: #111;
+            padding: 50px;
+            border-radius: 30px;
+            border: 3px solid var(--lime);
+            box-shadow: 0 0 60px var(--lime);
+            animation: boom 0.6s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+        }
+
+        @keyframes boom {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        audio {
+            margin-top: 30px;
+            width: 100%;
+            filter: invert(1) hue-rotate(90deg) brightness(1.5);
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div class="glow"></div>
+
+    <header>
+        <div class="logo">MR<span>LAYM</span></div>
+    </header>
+
+    <main class="container">
+        <div id="waiting">
+            <span class="bomb">🧨</span>
+            <h1 class="main-title">TNT <br><span>DINAMIT</span></h1>
+            
+            <div class="timer-grid">
+                <div class="t-unit"><span id="d">00</span><p>дней</p></div>
+                <div class="t-unit"><span id="h">00</span><p>часов</p></div>
+                <div class="t-unit"><span id="m">00</span><p>минут</p></div>
+                <div class="t-unit"><span id="s">00</span><p>секунд</p></div>
+            </div>
+            
+            <p class="status">Объект заминирован. Детонация 1 апреля в 12:00</p>
+        </div>
+
+        <div id="release" class="hidden"></div>
+    </main>
+
+    <script>
+        // ДАТА: 1 апреля 2026, 12:00
+        const target = new Date("April 1, 2026 12:00:00").getTime();
+
+        function update() {
+            const now = new Date().getTime();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                showRelease();
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("d").innerText = days.toString().padStart(2, '0');
+            document.getElementById("h").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("m").innerText = mins.toString().padStart(2, '0');
+            document.getElementById("s").innerText = secs.toString().padStart(2, '0');
+        }
+
+        function showRelease() {
+            const waitBox = document.getElementById("waiting");
+            const releaseBox = document.getElementById("release");
+
+            if (!waitBox.classList.contains("hidden")) {
+                waitBox.classList.add("hidden");
+                releaseBox.innerHTML = `
+                    <div class="player-card">
+                        <h2 style="color: var(--lime); margin-bottom: 10px;">ДЕТОНАЦИЯ ПРОШЛА УСПЕШНО!</h2>
+                        <h1 style="font-size: 3rem; margin-bottom: 20px;">TNT (Dinamit)</h1>
+                        <audio controls autoplay>
+                            <source src="sPervimAprely.mp3" type="audio/mpeg">
+                        </audio>
+                        <p style="margin-top: 20px; opacity: 0.5;">С первым апреля! Слушай на всю катушку.</p>
+                    </div>
+                `;
+                releaseBox.classList.remove("hidden");
+            }
+        }
+
+        setInterval(update, 1000);
+        update();
+    </script>
+</body>
+</html>
