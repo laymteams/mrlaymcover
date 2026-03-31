@@ -1,144 +1,127 @@
 :root {
     --lime: #32CD32;
-    --black: #000000;
-    --dark: #0a0a0a;
+    --black: #080808;
+    --red: #ff3333;
     --white: #ffffff;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     background-color: var(--black);
     color: var(--white);
     font-family: 'Montserrat', sans-serif;
-    overflow: hidden;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Фон с эффектом свечения */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(50, 205, 50, 0.1) 0%, transparent 70%);
+    z-index: -1;
 }
 
 header {
-    padding: 30px 5%;
     position: absolute;
+    top: 40px;
+    left: 0;
     width: 100%;
-    z-index: 10;
+    text-align: center;
 }
 
 .logo {
     font-family: 'Syncopate', sans-serif;
-    font-size: 1.5rem;
-    letter-spacing: 3px;
-}
-
-.logo span { color: var(--lime); }
-
-.screen {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    transition: opacity 1s ease;
-}
-
-.hidden { display: none; opacity: 0; }
-
-/* Таймер и тексты */
-.top-label {
-    color: var(--lime);
-    font-weight: 900;
+    font-size: 1.8rem;
     letter-spacing: 5px;
-    margin-bottom: 20px;
 }
 
-.title {
-    font-size: clamp(3.5rem, 12vw, 8rem);
+.logo span { color: var(--lime); text-shadow: 0 0 15px var(--lime); }
+
+/* Основной контент */
+.container { width: 100%; max-width: 800px; text-align: center; padding: 20px; }
+
+.main-title {
+    font-size: clamp(3rem, 15vw, 7rem);
+    line-height: 0.85;
+    margin-bottom: 30px;
     font-weight: 900;
-    text-transform: uppercase;
-    line-height: 0.9;
-    margin-bottom: 40px;
 }
 
-.title span {
+.main-title span {
     color: transparent;
     -webkit-text-stroke: 2px var(--lime);
 }
 
-.timer {
+.bomb-icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); filter: drop-shadow(0 0 5px var(--red)); }
+    to { transform: scale(1.1); filter: drop-shadow(0 0 20px var(--red)); }
+}
+
+/* Таймер */
+.timer-grid {
     display: flex;
-    gap: 20px;
-    margin-bottom: 30px;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
 }
 
-.t-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(50, 205, 50, 0.2);
+.t-unit {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--lime);
     padding: 15px;
-    min-width: 80px;
-    border-radius: 12px;
+    min-width: 85px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.1);
 }
 
-.t-box span {
+.t-unit span {
     display: block;
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 900;
     color: var(--lime);
 }
 
-.t-box p { font-size: 0.6rem; text-transform: uppercase; opacity: 0.5; }
+.t-unit p { font-size: 0.6rem; text-transform: uppercase; opacity: 0.7; }
 
-/* Карточка плеера */
-.player-card {
-    background: var(--dark);
-    padding: 30px;
-    border-radius: 24px;
-    border: 2px solid var(--lime);
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    box-shadow: 0 0 50px rgba(50, 205, 50, 0.2);
+.status-text {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--red);
+    font-weight: bold;
 }
 
-.cover-art {
-    width: 120px;
-    height: 120px;
-    background: #ff0000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
-    font-size: 2rem;
-    border-radius: 12px;
-    box-shadow: inset 0 0 20px #000;
+/* Стили плеера после релиза */
+.player-box {
+    animation: explode 0.5s ease-out;
+    background: #111;
+    padding: 40px;
+    border-radius: 30px;
+    border: 3px solid var(--lime);
+    box-shadow: 0 0 50px var(--lime);
 }
 
-.player-info h2 { color: var(--lime); margin-bottom: 5px; }
+.hidden { display: none !important; }
+
+@keyframes explode {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
 
 audio {
-    margin-top: 15px;
-    filter: invert(100%) hue-rotate(180deg) brightness(1.5); /* Делаем стандартный плеер лаймовым/белым */
-}
-
-footer {
-    position: absolute;
-    bottom: 30px;
+    margin-top: 20px;
     width: 100%;
-    text-align: center;
-    opacity: 0.3;
-    font-size: 0.8rem;
-}
-
-/* Эффект свечения на фоне */
-.glow {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: var(--lime);
-    filter: blur(150px);
-    opacity: 0.15;
-    z-index: -1;
+    filter: invert(1) hue-rotate(90deg); /* Делаем стандартный плеер зеленым */
 }
