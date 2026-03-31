@@ -1,40 +1,42 @@
-// Функция обратного отсчета
-function startCountdown() {
-    // Устанавливаем дату: 1 апреля 2026, 12:00:00
-    const releaseDate = new Date("April 1, 2026 12:00:00").getTime();
+const targetDate = new Date("April 1, 2026 12:00:00").getTime();
 
-    const timerInterval = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = releaseDate - now;
+function updateUI() {
+    const now = new Date().getTime();
+    const gap = targetDate - now;
 
-        // Расчет времени
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    if (gap <= 0) {
+        // ВРЕМЯ ПРИШЛО: Показываем трек, скрываем таймер
+        document.getElementById("waiting-screen").classList.add("hidden");
+        document.getElementById("release-screen").classList.remove("hidden");
+        return;
+    }
 
-        // Вывод в HTML
-        document.getElementById("days").innerText = days.toString().padStart(2, '0');
-        document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
-        document.getElementById("mins").innerText = minutes.toString().padStart(2, '0');
-        document.getElementById("secs").innerText = seconds.toString().padStart(2, '0');
+    // Расчет времени для таймера
+    const second = 1000;
+    const minute = second * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
 
-        // Если время вышло
-        if (distance < 0) {
-            clearInterval(timerInterval);
-            document.querySelector(".countdown").innerHTML = "<h2 style='color: var(--lime)'>BOOM! ТРЕК ВЫШЕЛ</h2>";
-        }
-    }, 1000);
+    const d = Math.floor(gap / day);
+    const h = Math.floor((gap % day) / hour);
+    const m = Math.floor((gap % hour) / minute);
+    const s = Math.floor((gap % minute) / second);
+
+    // Вывод в HTML
+    document.getElementById("days").innerText = d.toString().padStart(2, '0');
+    document.getElementById("hours").innerText = h.toString().padStart(2, '0');
+    document.getElementById("mins").innerText = m.toString().padStart(2, '0');
+    document.getElementById("secs").innerText = s.toString().padStart(2, '0');
 }
 
-// Плавный переход по ссылкам
-document.querySelectorAll('nav a').forEach(link => {
-    link.onclick = function(e) {
-        e.preventDefault();
-        let target = document.querySelector(this.getAttribute('href'));
-        target.scrollIntoView({ behavior: "smooth" });
-    }
-});
+// Запуск проверки каждую секунду
+const timerId = setInterval(() => {
+    updateUI();
+    
+    // Если релиз случился, можно остановить интервал
+    const now = new Date().getTime();
+    if (targetDate - now <= 0) clearInterval(timerId);
+}, 1000);
 
-// Запуск
-startCountdown();
+// Вызываем один раз сразу при загрузке
+updateUI();
