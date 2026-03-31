@@ -3,70 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MrLaym | Official Site</title>
+    <title>MrLaym | TNT (Dinamit)</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        <div class="logo">Mr<span>Laym</span></div>
-        <nav>
-            <a href="#release">Релиз</a>
-            <a href="#covers">Каверы</a>
-            <a href="#social">Связь</a>
-        </nav>
+        <div class="logo">MR<span>LAYM</span></div>
     </header>
 
-    <main>
-        <section id="release" class="hero">
-            <div class="hero-bg"></div>
-            <div class="content-wrapper">
-                <div class="release-info">
-                    <span class="label">Single No. 1</span>
-                    <h1 class="glitch" data-text="TNT (Dinamit)">TNT (Dinamit)</h1>
-                    <p class="sub-text">Готовься к детонации. Релиз 1 апреля в 12:00.</p>
-                    
-                    <div id="timer" class="countdown">
-                        <div class="t-item"><span id="days">00</span><label>дней</label></div>
-                        <div class="t-item"><span id="hours">00</span><label>часов</label></div>
-                        <div class="t-item"><span id="mins">00</span><label>минут</label></div>
-                        <div class="t-item"><span id="secs">00</span><label>секунд</label></div>
-                    </div>
-
-                    <a href="#" class="main-btn">Pre-Save Now</a>
-                </div>
-                <div class="tnt-art">
-                    <div class="art-circle"></div>
-                    <div class="tnt-text">TNT</div>
-                </div>
+    <main id="main-container">
+        <section id="waiting-screen" class="screen">
+            <div class="glow"></div>
+            <span class="top-label">COMING SOON</span>
+            <h1 class="title">TNT <br><span>(Dinamit)</span></h1>
+            
+            <div id="countdown" class="timer">
+                <div class="t-box"><span id="days">00</span><p>дней</p></div>
+                <div class="t-box"><span id="hours">00</span><p>часов</p></div>
+                <div class="t-box"><span id="mins">00</span><p>минут</p></div>
+                <div class="t-box"><span id="secs">00</span><p>секунд</p></div>
             </div>
+            <p class="date-text">Релиз: 1 апреля, 12:00</p>
         </section>
 
-        <section id="covers" class="covers">
-            <h2 class="title">Мои <span>Каверы</span></h2>
-            <div class="grid">
-                <div class="card">
-                    <div class="card-img" style="background-image: url('https://via.placeholder.com/400x400/111/32CD32?text=Cover+1');"></div>
-                    <div class="card-body">
-                        <h3>Название кавера</h3>
-                        <p>Оригинал: Исполнитель</p>
-                        <button class="play-btn">Слушать</button>
-                    </div>
+        <section id="release-screen" class="screen hidden">
+            <div class="explosion-bg"></div>
+            <span class="new-label">OUT NOW</span>
+            <h1 class="title release-title">TNT (Dinamit)</h1>
+            
+            <div class="player-card">
+                <div class="cover-art">TNT</div>
+                <div class="player-info">
+                    <h2>MrLaym</h2>
+                    <p>TNT (Dinamit)</p>
+                    <audio id="audio-player" controls>
+                        <source src="sPervimAprely.mp3" type="audio/mpeg">
+                        Ваш браузер не поддерживает аудио.
+                    </audio>
                 </div>
-                <div class="card">
-                    <div class="card-img" style="background-image: url('https://via.placeholder.com/400x400/111/32CD32?text=Cover+2');"></div>
-                    <div class="card-body">
-                        <h3>Название кавера</h3>
-                        <p>Оригинал: Исполнитель</p>
-                        <button class="play-btn">Слушать</button>
-                    </div>
-                </div>
+            </div>
+            <div class="links">
+                <a href="#" class="btn-share">Поделиться взрывом</a>
             </div>
         </section>
     </main>
 
-    <footer id="social">
+    <footer>
         <p>&copy; 2026 MrLaym. Сделано с драйвом.</p>
     </footer>
 
