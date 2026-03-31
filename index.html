@@ -5,54 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MrLaym | TNT (Dinamit)</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <div class="overlay"></div>
 
     <header>
         <div class="logo">MR<span>LAYM</span></div>
     </header>
 
-    <main id="main-container">
-        <section id="waiting-screen" class="screen">
-            <div class="glow"></div>
-            <span class="top-label">COMING SOON</span>
-            <h1 class="title">TNT <br><span>(Dinamit)</span></h1>
-            
-            <div id="countdown" class="timer">
-                <div class="t-box"><span id="days">00</span><p>дней</p></div>
-                <div class="t-box"><span id="hours">00</span><p>часов</p></div>
-                <div class="t-box"><span id="mins">00</span><p>минут</p></div>
-                <div class="t-box"><span id="secs">00</span><p>секунд</p></div>
+    <main class="container">
+        <div id="timer-screen" class="active-screen">
+            <div class="bomb-icon">🧨</div>
+            <h1 class="main-title">TNT <br><span>DINAMIT</span></h1>
+            <div class="timer-grid">
+                <div class="t-unit"><span id="days">00</span><p>дней</p></div>
+                <div class="t-unit"><span id="hours">00</span><p>часов</p></div>
+                <div class="t-unit"><span id="mins">00</span><p>минут</p></div>
+                <div class="t-unit"><span id="secs">00</span><p>секунд</p></div>
             </div>
-            <p class="date-text">Релиз: 1 апреля, 12:00</p>
-        </section>
+            <p class="status-text">ОБЪЕКТ ЗАМИНИРОВАН. ДЕТОНАЦИЯ 1 АПРЕЛЯ В 12:00</p>
+        </div>
 
-        <section id="release-screen" class="screen hidden">
-            <div class="explosion-bg"></div>
-            <span class="new-label">OUT NOW</span>
-            <h1 class="title release-title">TNT (Dinamit)</h1>
-            
-            <div class="player-card">
-                <div class="cover-art">TNT</div>
-                <div class="player-info">
-                    <h2>MrLaym</h2>
-                    <p>TNT (Dinamit)</p>
-                    <audio id="audio-player" controls>
-                        <source src="sPervimAprely.mp3" type="audio/mpeg">
-                        Ваш браузер не поддерживает аудио.
-                    </audio>
-                </div>
-            </div>
-            <div class="links">
-                <a href="#" class="btn-share">Поделиться взрывом</a>
-            </div>
-        </section>
+        <div id="release-screen" class="hidden"></div>
     </main>
-
-    <footer>
-        <p>&copy; 2026 MrLaym. Сделано с драйвом.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
