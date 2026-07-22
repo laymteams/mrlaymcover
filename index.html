@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MrLaym | TNT DINAMIT</title>
-    
+    <title>MrLaym</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
 
     <style>
@@ -17,6 +17,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html, body { height: 100%; }
+
         body {
             background-color: var(--black);
             color: var(--white);
@@ -24,7 +26,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             overflow-x: hidden;
             text-align: center;
@@ -35,14 +37,13 @@
             position: fixed;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at 50% 50%, rgba(50, 205, 50, 0.1) 0%, transparent 80%);
+            background: radial-gradient(circle at 50% 20%, rgba(50, 205, 50, 0.12) 0%, transparent 75%);
             z-index: -1;
         }
 
         header {
-            position: absolute;
-            top: 40px;
             width: 100%;
+            padding: 40px 20px 0;
         }
 
         .logo {
@@ -53,7 +54,7 @@
 
         .logo span { color: var(--lime); text-shadow: 0 0 20px var(--lime); }
 
-        .container { width: 100%; max-width: 900px; padding: 20px; z-index: 1; }
+        .container { width: 100%; max-width: 900px; padding: 20px; z-index: 1; margin: 0 auto; }
 
         .main-title {
             font-size: clamp(3rem, 12vw, 7rem);
@@ -117,28 +118,109 @@
 
         @keyframes blink { 50% { opacity: 0.3; } }
 
-        /* ПЛЕЕР (Появится после взрыва) */
-        .player-card {
-            background: #111;
-            padding: 50px;
-            border-radius: 30px;
-            border: 3px solid var(--lime);
-            box-shadow: 0 0 60px var(--lime);
+        /* СТРАНИЦА РЕЛИЗА / ТРЕКЛИСТ */
+        #release {
+            width: 100%;
+            padding-bottom: 60px;
             animation: boom 0.6s cubic-bezier(0.17, 0.89, 0.32, 1.49);
         }
 
         @keyframes boom {
-            0% { transform: scale(0); }
-            100% { transform: scale(1); }
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .release-head { margin-bottom: 30px; }
+
+        .release-head h2 {
+            color: var(--lime);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .release-head h1 {
+            font-size: clamp(2.2rem, 8vw, 4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .tracklist {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .track-card {
+            background: #111;
+            border: 2px solid rgba(50, 205, 50, 0.4);
+            border-radius: 20px;
+            padding: 25px 30px;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .track-card:hover,
+        .track-card.playing {
+            border-color: var(--lime);
+            box-shadow: 0 0 35px rgba(50, 205, 50, 0.25);
+        }
+
+        .track-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 16px;
+        }
+
+        .track-num {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.1rem;
+            color: var(--lime);
+            border: 2px solid var(--lime);
+            border-radius: 10px;
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .track-info h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .track-info p {
+            font-size: 0.75rem;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
         }
 
         audio {
-            margin-top: 30px;
             width: 100%;
+            display: block;
             filter: invert(1) hue-rotate(90deg) brightness(1.5);
         }
 
+        .release-footer {
+            margin-top: 35px;
+            opacity: 0.5;
+            font-size: 0.9rem;
+        }
+
         .hidden { display: none !important; }
+
+        @media (max-width: 480px) {
+            .track-card { padding: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -153,14 +235,14 @@
         <div id="waiting">
             <span class="bomb">🧨</span>
             <h1 class="main-title">TNT <br><span>DINAMIT</span></h1>
-            
+
             <div class="timer-grid">
                 <div class="t-unit"><span id="d">00</span><p>дней</p></div>
                 <div class="t-unit"><span id="h">00</span><p>часов</p></div>
                 <div class="t-unit"><span id="m">00</span><p>минут</p></div>
                 <div class="t-unit"><span id="s">00</span><p>секунд</p></div>
             </div>
-            
+
             <p class="status">Объект заминирован. Детонация 1 апреля в 12:00</p>
         </div>
 
@@ -170,6 +252,20 @@
     <script>
         // ДАТА: 1 апреля 2026, 12:00
         const target = new Date("April 1, 2026 12:00:00").getTime();
+
+        // ТРЕКИ
+        const tracks = [
+            {
+                title: "Кто командует шоу",
+                subtitle: "Сделано с любовью и в рамках закона конечно же)",
+                src: "BandLabSong.mp3"
+            },
+            {
+                title: "TNT (Dinamit)",
+                subtitle: "С первым апреля! Слушай на всю катушку.",
+                src: "sPervimAprely.mp3"
+            }
+        ];
 
         function update() {
             const now = new Date().getTime();
@@ -191,23 +287,56 @@
             document.getElementById("s").innerText = secs.toString().padStart(2, '0');
         }
 
+        function buildTrackCard(track, index) {
+            const num = (index + 1).toString().padStart(2, '0');
+            return `
+                <div class="track-card" id="card-${index}">
+                    <div class="track-top">
+                        <div class="track-num">${num}</div>
+                        <div class="track-info">
+                            <h3>${track.title}</h3>
+                            <p>${track.subtitle}</p>
+                        </div>
+                    </div>
+                    <audio controls preload="none" data-index="${index}">
+                        <source src="${track.src}" type="audio/mpeg">
+                    </audio>
+                </div>
+            `;
+        }
+
         function showRelease() {
             const waitBox = document.getElementById("waiting");
             const releaseBox = document.getElementById("release");
 
             if (!waitBox.classList.contains("hidden")) {
                 waitBox.classList.add("hidden");
+
+                const cardsHtml = tracks.map(buildTrackCard).join("");
+
                 releaseBox.innerHTML = `
-                    <div class="player-card">
-                        <h2 style="color: var(--lime); margin-bottom: 10px;">ДЕТОНАЦИЯ ПРОШЛА УСПЕШНО!</h2>
-                        <h1 style="font-size: 3rem; margin-bottom: 20px;">TNT (Dinamit)</h1>
-                        <audio controls autoplay>
-                            <source src="sPervimAprely.mp3" type="audio/mpeg">
-                        </audio>
-                        <p style="margin-top: 20px; opacity: 0.5;">С первым апреля! Слушай на всю катушку.</p>
+                    <div class="release-head">
+                        <h1>Все треки</h1>
                     </div>
+                    <div class="tracklist">
+                        ${cardsHtml}
+                    </div>
+                    <p class="release-footer">Слушай на всю катушку.</p>
                 `;
                 releaseBox.classList.remove("hidden");
+
+                // Подсветка карточки при воспроизведении + автопауза остальных
+                const audios = releaseBox.querySelectorAll("audio");
+                audios.forEach(a => {
+                    a.addEventListener("play", () => {
+                        audios.forEach(other => {
+                            if (other !== a) other.pause();
+                        });
+                        document.querySelectorAll(".track-card").forEach(c => c.classList.remove("playing"));
+                        document.getElementById(`card-${a.dataset.index}`).classList.add("playing");
+                    });
+                });
+
             }
         }
 
