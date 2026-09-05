@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MrLaym</title>
+    <title>MrLaym — мне нех*р делать!</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
 
@@ -50,6 +50,8 @@
             font-family: 'Syncopate', sans-serif;
             font-size: 1.8rem;
             letter-spacing: 5px;
+            color: var(--white);
+            text-decoration: none;
         }
 
         .logo span { color: var(--lime); text-shadow: 0 0 20px var(--lime); }
@@ -57,8 +59,8 @@
         .container { width: 100%; max-width: 900px; padding: 20px; z-index: 1; margin: 0 auto; }
 
         .main-title {
-            font-size: clamp(3rem, 12vw, 7rem);
-            line-height: 0.9;
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            line-height: 0.95;
             margin-bottom: 40px;
             font-weight: 900;
             text-transform: uppercase;
@@ -216,71 +218,21 @@
             font-size: 0.9rem;
         }
 
-        /* АЛЬБОМ */
-        .album-block {
-            border: 2px solid rgba(50, 205, 50, 0.4);
-            border-radius: 25px;
-            padding: 45px 25px 40px;
-            margin-bottom: 55px;
-            background: rgba(255, 255, 255, 0.02);
-            box-shadow: 0 0 40px rgba(50, 205, 50, 0.08);
-        }
-
-        .album-tag {
-            display: inline-block;
-            font-family: 'Syncopate', sans-serif;
-            font-size: 0.65rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+        .release-footer a {
             color: var(--lime);
-            border: 2px solid var(--lime);
-            border-radius: 30px;
-            padding: 6px 18px;
-            margin-bottom: 20px;
-        }
-
-        .album-block h2 {
-            font-size: clamp(2.2rem, 8vw, 4.5rem);
-            font-weight: 900;
-            text-transform: uppercase;
-            line-height: 0.95;
-            color: var(--lime);
-            text-shadow: 0 0 30px rgba(50, 205, 50, 0.35);
-        }
-
-        .album-block h2 .alt {
-            color: transparent;
-            -webkit-text-stroke: 1px var(--lime);
-            text-shadow: none;
-        }
-
-        .album-sub {
-            margin-top: 12px;
-            font-size: 0.75rem;
-            opacity: 0.6;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .album-btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 17px 38px;
-            border: 2px solid var(--lime);
-            border-radius: 50px;
-            color: var(--lime);
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
             text-decoration: none;
-            box-shadow: 0 0 30px rgba(50, 205, 50, 0.3);
-            transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .album-btn:hover {
-            background: var(--lime);
-            color: var(--black);
-            box-shadow: 0 0 40px rgba(50, 205, 50, 0.5);
+        .age-note {
+            margin-top: 25px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--red);
+            opacity: 0.8;
         }
 
         .hidden { display: none !important; }
@@ -295,32 +247,13 @@
     <div class="glow"></div>
 
     <header>
-        <div class="logo">MR<span>LAYM</span></div>
+        <a href="index.html" class="logo">MR<span>LAYM</span></a>
     </header>
 
     <main class="container">
-        <section id="album" class="album-block">
-            <span class="album-tag">Альбом</span>
-            <h2>мне нех*р <span class="alt">делать!</span></h2>
-            <p class="album-sub">6 треков</p>
-
-            <div id="albumTimer" class="timer-grid">
-                <div class="t-unit"><span id="ad">00</span><p>дней</p></div>
-                <div class="t-unit"><span id="ah">00</span><p>часов</p></div>
-                <div class="t-unit"><span id="am">00</span><p>минут</p></div>
-                <div class="t-unit"><span id="as">00</span><p>секунд</p></div>
-            </div>
-
-            <p id="albumStatus" class="status">Объект заминирован. Детонация 1 октября в 00:00</p>
-
-            <div id="albumReady" class="hidden">
-                <a class="album-btn" href="album.html">Слушать альбом</a>
-            </div>
-        </section>
-
         <div id="waiting">
             <span class="bomb">🧨</span>
-            <h1 class="main-title">TNT <br><span>DINAMIT</span></h1>
+            <h1 class="main-title">мне нех*р<br><span>делать!</span></h1>
 
             <div class="timer-grid">
                 <div class="t-unit"><span id="d">00</span><p>дней</p></div>
@@ -329,54 +262,49 @@
                 <div class="t-unit"><span id="s">00</span><p>секунд</p></div>
             </div>
 
-            <p class="status">Объект заминирован. Детонация 1 апреля в 12:00</p>
+            <p class="status">Объект заминирован. Детонация 1 октября в 00:00</p>
         </div>
 
         <div id="release" class="hidden"></div>
     </main>
 
     <script>
-        // ДАТА: 1 апреля 2026, 12:00
-        const target = new Date("April 1, 2026 12:00:00").getTime();
+        // ДАТА: 1 октября 2026, 00:00
+        const target = new Date("October 1, 2026 00:00:00").getTime();
 
-        // ТРЕКИ
+        // ТРЕКИ АЛЬБОМА
         const tracks = [
             {
-                title: "Кто командует шоу",
-                subtitle: "Сделано с любовью и в рамках закона конечно же)",
-                src: "BandLabSong.mp3"
+                title: "Заставка",
+                subtitle: "13 карт",
+                src: "mnd1.mp3"
             },
             {
-                title: "TNT (Dinamit)",
-                subtitle: "С первым апреля! Слушай на всю катушку. ПЕРЕСТАНЕТ БЫТЬ ДОСТУПНО С АВГУСТА!",
-                src: "sPervimAprely.mp3"
+                title: "доброта",
+                subtitle: "13 карт",
+                src: "mnd2.mp3"
+            },
+            {
+                title: "Цитаты великих людей (!)",
+                subtitle: "13 карт",
+                src: "mnd3.mp3"
+            },
+            {
+                title: "Зелёные очки",
+                subtitle: "13 карт",
+                src: "mnd4.mp3"
+            },
+            {
+                title: "не причёсывай меня!",
+                subtitle: "13 карт",
+                src: "mnd5.mp3"
+            },
+            {
+                title: "МНЕ НЕХ*Р ДЕЛАТЬ! (!)",
+                subtitle: "Главный трек",
+                src: "mndMAINsong.mp3"
             }
         ];
-
-        // ДАТА ВЫХОДА АЛЬБОМА: 1 октября 2026, 00:00
-        const albumTarget = new Date("October 1, 2026 00:00:00").getTime();
-
-        function updateAlbum() {
-            const now = new Date().getTime();
-            const diff = albumTarget - now;
-
-            if (diff <= 0) {
-                document.getElementById("albumTimer").classList.add("hidden");
-                document.getElementById("albumStatus").classList.add("hidden");
-                document.getElementById("albumReady").classList.remove("hidden");
-                return;
-            }
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById("ad").innerText = days.toString().padStart(2, '0');
-            document.getElementById("ah").innerText = hours.toString().padStart(2, '0');
-            document.getElementById("am").innerText = mins.toString().padStart(2, '0');
-            document.getElementById("as").innerText = secs.toString().padStart(2, '0');
-        }
 
         function update() {
             const now = new Date().getTime();
@@ -427,12 +355,14 @@
 
                 releaseBox.innerHTML = `
                     <div class="release-head">
-                        <h1>Все треки</h1>
+                        <h2>Альбом</h2>
+                        <h1>мне нех*р делать!</h1>
                     </div>
                     <div class="tracklist">
                         ${cardsHtml}
                     </div>
-                    <p class="release-footer">Слушай на всю катушку.</p>
+                    <p class="age-note">(!) — Возрастное ограничение 18+</p>
+                    <p class="release-footer">Слушай на всю катушку. · <a href="index.html">На главную</a></p>
                 `;
                 releaseBox.classList.remove("hidden");
 
@@ -451,9 +381,8 @@
             }
         }
 
-        setInterval(() => { update(); updateAlbum(); }, 1000);
+        setInterval(update, 1000);
         update();
-        updateAlbum();
     </script>
 </body>
 </html>
